@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Word</title>
+</head>
+<body>
+    <h1>Add a New Word</h1>
+    <style>
+        .flash.error {
+            color: red;
+            font-weight: bold;
+        }
+        .flash.success {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+    <!-- Wyświetlanie komunikatów flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul>
+            {% for category, message in messages %}
+                <li class="flash {{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+    <!-- Wyświetlanie błędów formularza -->
+    {% if form.errors %}
+        <ul>
+            {% for field, errors in form.errors.items() %}
+                {% for error in errors %}
+                    <li><strong>{{ field.label.text }}</strong>: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div>
+            <label for="language">{{ form.language.label }}</label>
+            {{ form.language }}
+        </div>
+        <div>
+            <label for="original">{{ form.original.label }}</label>
+            {{ form.original(size=20) }}
+        </div>
+        <div>
+            <label for="translation">{{ form.translation.label }}</label>
+            {{ form.translation(size=20) }}
+        </div>
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+    <p><a href="{{ url_for('dashboard') }}">Back to Dashboard</a></p>
+</body>
+</html>

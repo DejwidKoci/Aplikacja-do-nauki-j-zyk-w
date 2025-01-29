@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <p>Welcome, {{ current_user.username }}!</p>
+    <!-- Wyświetlanie komunikatów flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li class="flash {{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Informacja o wybranym języku -->
+    <h2>Current Language: {{ selected_language.name }}</h2>
+
+    <hr>
+
+    <!-- Opcje nawigacji -->
+    <ul>
+        <li><a href="{{ url_for('add_word') }}">Add New Word</a></li>
+        <li><a href="{{ url_for('test') }}">Start a Word Test</a></li>
+        <li><a href="{{ url_for('select_language') }}">Change Language</a></li>
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    </ul>
+</body>
+</html>
