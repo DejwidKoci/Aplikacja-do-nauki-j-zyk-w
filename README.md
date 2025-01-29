@@ -19,9 +19,11 @@ W dashboardzie mamy:
 - możliwość zmiany języka (Change Language)
 - możliwość wylogowania się (Logout)
 
+W pierwszej kolejności podczas pierwszego logowania powinniśmy dodać słówka do nauki, jak już mamy wybrany język. Potem możemy bezpośrednio przystąpić do quizu.
 
-W przypadku uruchomienia testu w momencie, kiedy do wybranego języka nie ma żadnych wcześniej utworzonych słów wyświetli się komunikat "You don't have any words to test in the selected language".
-W przypadku uruchomienia testu w momencie, kiedy zostały słówka dodane do wybranego języka. Mamy następujący układ:
+# Test
+W przypadku uruchomienia testu w momencie, kiedy do wybranego języka nie ma żadnych wcześniej utworzonych słów wyświetli się komunikat "You don't have any words to test in the selected language". Należy wtedy przejść do formularza "Add New Word" i nowe słowa do nauki dodać słowa.
+W przypadku uruchomienia testu w momencie, kiedy zostały słówka dodane do wybranego języka zostaniemy przekierowani do formularza, gdzie mamy następujący układ:
 - słówko do przetłumaczenia
 - pole do wpisania słowa
 - odsetek wszystkich słówek, na które udzielono poprawną odpowiedź
