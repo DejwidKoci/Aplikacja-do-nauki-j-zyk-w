@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Test</title>
+    <style>
+        .progress-bar {
+            width: 100%;
+            background-color: #f3f3f3;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        .progress-bar-inner {
+            height: 20px;
+            background-color: #4caf50;
+            width: {{ progress_percentage }}%;
+            transition: width 0.3s ease;
+        }
+        .flashes {
+            list-style: none;
+            padding: 0;
+        }
+        .flashes li {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .flashes .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .flashes .danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Word Test</h1>
+
+    <!-- Komunikaty flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    {% if test_completed %}
+        <!-- Sekcja zakończenia testu -->
+        <h2>Congratulations!</h2>
+        <p>You completed the test.</p>
+        <a href="{{ url_for('dashboard') }}" class="button">Go to Dashboard</a>
+        <a href="{{ url_for('logout') }}" class="button">Logout</a>
+    {% else %}
+        <!-- Trwający test -->
+        <p><strong>Language:</strong> {{ language_name }}</p>
+        <p>Translate the following word:</p>
+        <h2>{{ word.original }}</h2>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div>
+                {{ form.answer.label }} {{ form.answer(size=20) }}
+            </div>
+            <div>
+                {{ form.submit() }}
+            </div>
+        </form>
+
+        <!-- Szczegóły postępu -->
+        <p><strong>Progress:</strong> {{ correct_count }}/{{ total_words }} words correct ({{ progress_percentage|round(2) }}%)</p>
+        
+        <!-- Pasek postępu -->
+        <div class="progress-bar">
+            <div class="progress-bar-inner" style="width: {{ progress_percentage }}%;"></div>
+        </div>
+        
+        <!-- Pozostałe słowa -->
+        <p>{{ remaining }} word(s) remaining.</p>
+    {% endif %}
+
+</body>
+</html>
